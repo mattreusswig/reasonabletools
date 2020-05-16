@@ -2,8 +2,7 @@
 % Please edit documentation in R/cleaning_functions.R
 \name{fuse_samples}
 \alias{fuse_samples}
-\title{Calculate composite parameter concentrations using congener concentrations
-grouped by a sampling date vector.}
+\title{Combine values for a composite parameter}
 \usage{
 fuse_samples(date_grp, qual, result, nd = c("<", "nd", "ND"))
 }
@@ -21,8 +20,7 @@ A dataframe containing a column of sampling dates used to group data,
 a qualifier column (character), and a MEC result column (numeric).
 }
 \description{
-Calculate composite parameter concentrations using congener concentrations
-grouped by a sampling date vector.
+Calculate composite parameter concentrations using congener concentrations grouped by a sampling date vector. An example would application would be summing PCB congeners collected on a specific sampling date to produce a total PCBs concentration.
 }
 \examples{
 df <- data.frame(dates = rep(seq.Date(from = as.Date("1982-03-10"),

@@ -2,8 +2,7 @@
 % Please edit documentation in R/cleaning_functions.R
 \name{mrg_cen_cols}
 \alias{mrg_cen_cols}
-\title{Merge a results column with a detection limits column by overwriting the
-censored results values with the corresponding detection limit.}
+\title{Merge together observed concentrations and detection limits}
 \usage{
 mrg_cen_cols(qual, result, limit, nd = c("<", "nd", "ND"))
 }
@@ -20,8 +19,7 @@ mrg_cen_cols(qual, result, limit, nd = c("<", "nd", "ND"))
 A numeric vector.
 }
 \description{
-Merge a results column with a detection limits column by overwriting the
-censored results values with the corresponding detection limit.
+Merge a results column with a detection limits column by overwriting the censored results values with the corresponding detection limit.
 }
 \examples{
 result <- runif(5, 1, 10)

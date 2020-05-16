@@ -1,5 +1,6 @@
 
-#' Sum up congener sample concentrations to create a composite parameter value.
+#' @title Sum detected and non-detect concentrations.
+#' @description Sum up congener sample concentrations to create a composite parameter value. Primarily intended as a helper function in fuse_samples.
 #'
 #' @param qual  A character vector containing non-detect indicator strings, e.g., "<" or "ND". The strings used to indicate censored status can be edited in the "nd" argument.
 #' @param result A numeric vector of concentration measurements.
@@ -66,8 +67,8 @@ cen_sum <- function(qual, result, nd = c("<", "nd", "ND")) {
 } 
 
 
-#' Calculate composite parameter concentrations using congener concentrations
-#' grouped by a sampling date vector.
+#' @title Combine values for a composite parameter
+#' @description Calculate composite parameter concentrations using congener concentrations grouped by a sampling date vector. An example would application would be summing PCB congeners collected on a specific sampling date to produce a total PCBs concentration.
 #'
 #' @param date_grp A date vector to group the dataset.
 #' @param qual  A character vector containing non-detect indicator strings, e.g., "<" or "ND". The strings used to indicate censored status can be edited in the "nd" argument.
@@ -119,8 +120,8 @@ fuse_samples <- function(date_grp, qual, result, nd = c("<", "nd", "ND")) {
 
 
 
-#' Merge a results column with a detection limits column by overwriting the 
-#' censored results values with the corresponding detection limit. 
+#' @title Merge together observed concentrations and detection limits 
+#' @description Merge a results column with a detection limits column by overwriting the censored results values with the corresponding detection limit. 
 #'
 #' @param qual  A character vector containing non-detect indicator strings, e.g., "<" or "ND". The strings used to indicate censored status can be edited in the "nd" argument.
 #' @param result A numeric vector of concentration measurements.

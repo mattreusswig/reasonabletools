@@ -2,7 +2,7 @@
 % Please edit documentation in R/cleaning_functions.R
 \name{cen_sum}
 \alias{cen_sum}
-\title{Sum up congener sample concentrations to create a composite parameter value.}
+\title{Sum detected and non-detect concentrations.}
 \usage{
 cen_sum(qual, result, nd = c("<", "nd", "ND"))
 }
@@ -17,7 +17,7 @@ cen_sum(qual, result, nd = c("<", "nd", "ND"))
 dataframe with two columns, qual (character) and result (numeric)
 }
 \description{
-Sum up congener sample concentrations to create a composite parameter value.
+Sum up congener sample concentrations to create a composite parameter value. Primarily intended as a helper function in fuse_samples.
 }
 \examples{
 ## Example 1 - Some non-detects
