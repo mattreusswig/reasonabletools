@@ -10,7 +10,6 @@
 #     do(project_mec(.$qual, .$result))
 
 
-
 #' Calculated adjusted coeficient of variation (CV).
 #'
 #' @param qual  A character vector containing non-detect indicator strings, e.g., "<" or "ND". The strings used to indicate censored status can be edited in the "nd" argument.
@@ -32,6 +31,7 @@ cv_adj <- function(qual, result,
                                argument entered is a ", result_class, " type.",
                                         call. = FALSE)
   
+
   ## Error message is given if the the 'result' and 'qual' arguments are of
   ## unequal lengths.
   if (length(result) != length(qual)) stop("The qual and result arguments must be equal in length. Qual is ", length(qual), " elements long, and result is ", length(result), ".", call. = FALSE)
@@ -62,6 +62,14 @@ cv_adj <- function(qual, result,
   ## the nd_adjustment argument.
   } else {
     
+    ## Issue a warning when NA's are present which is unexpected behavior.
+    if (anyNA(result)) {
+      na_index <- which(is.na(result))
+      na_index <- paste(na_index, collapse = ", ")
+      warning(paste0("Your result argument contains NA values at index loacation(s) ", na_index, " which have been removed in this calculation. Your coefficient of variation estimate may contain errors."))
+    } 
+    
+    ## Compute CV
     std_deviation <- sd( c(result[detects], 
                            nd_adjustment * result[nondetects]), 
                          na.rm = TRUE)

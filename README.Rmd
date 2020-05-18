@@ -73,7 +73,7 @@ zinc
 
 ## Find observed MEC
 find_mec(qual = zinc$qual, result = zinc$result, 
-         nd = c("My Indicator"))
+         nd = c("My ND Indicator"))
 
 ```
 

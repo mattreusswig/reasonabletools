@@ -147,9 +147,9 @@ zinc
 
 ## Find observed MEC
 find_mec(qual = zinc$qual, result = zinc$result, 
-         nd = c("My Indicator"))
+         nd = c("My ND Indicator"))
 #>   qual result
-#> 1          20
+#> 1    <      1
 ```
 
 When cleaning data for summary, recall that R is a case-sensitive

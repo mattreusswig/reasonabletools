@@ -7,7 +7,6 @@
 #' @param nd A list indicating all the censoring flags included in the dataset. Defaults to "<", "nd", and "ND".
 #'
 #' @return dataframe with two columns, qual (character) and result (numeric)
-#' @export
 #'
 #' @examples 
 #' ## Example 1 - Some non-detects
