@@ -1,16 +1,5 @@
-## Scripts for permit writers
-##
-## Based on calculation procedures detailed in EPA's Technical Support 
-## Document for Water Quality Based Toxics Control.
-
-# To get the functions with 2 output columns to work with dplyr (pre 1.0), use do( ):
-#   
-#   data %>% 
-#     group_by(parameter) %>% 
-#     do(project_mec(.$qual, .$result))
-
-
-#' Calculated adjusted coeficient of variation (CV).
+#' @title Find the adjusted coeffecient of variation
+#' @description Calculates adjusted coeficient of variation (CV) according to methods described in EPA's Technical Support Document for Water Quality-based Toxics Control.
 #'
 #' @param qual  A character vector containing non-detect indicator strings, e.g., "<" or "ND". The strings used to indicate censored status can be edited in the "nd" argument.
 #' @param result A numeric vector of concentration measurements.
@@ -20,7 +9,27 @@
 #' @return A numeric coefficient of variation (CV) value
 #' @export
 #'
-#' @examples
+#' @examples 
+#' # CV for all detected values 
+#' cen_result <- rep("", 10)
+#' result     <- c(1:10) 
+#' cv_adj(cen_result, result)
+#' 
+#' # CV for all non-detected values
+#' cen_result <- rep("<", 10)
+#' cv_adj(cen_result, result)
+#' 
+#' # CV for fewer than 10 measurements
+#' cen_result <- rep("", 5)
+#' result <-     c(1:5)
+#' cv_adj(cen_result, result)
+#' 
+#' # Change the default substitution value
+#' cen_result <- c(rep("<", 5), rep("", 15))
+#' result     <- c(101:120)
+#' cv_adj(cen_result, result)   # Use default 0.5 multipler
+#' cv_adj(cen_result, result, nd_adjustment = 1.0)  # Use 1.0 multiplier (equivalent to using MDL)
+#' cv_adj(cen_result, result, nd_adjustment = 0)  # Use 0.0 multiplier (equivalent to zero substitution)
 cv_adj <- function(qual, result, 
                    nd = c("<", "nd", "ND"), nd_adjustment = 0.5) {
   
@@ -87,7 +96,8 @@ cv_adj <- function(qual, result,
 }
 
 
-#' Find the Maximum Observed Effluent Concentration (MEC)
+#' @title Find the Maximum Observed Effluent Concentration (MEC)
+#' @description Find the MEC (no projection) from the observed dataset using methods described in EPA's Technical Support Document for Water Quality-based Toxics Control.
 #'
 #' @param qual  A character vector containing non-detect indicator strings, e.g., "<" or "ND". The strings used to indicate censored status can be edited in the "nd" argument.
 #' @param result A numeric vector of concentration measurements.
@@ -98,6 +108,24 @@ cv_adj <- function(qual, result,
 #' @export
 #'
 #' @examples
+#' # Find observed MEC
+#' cen_result <- c(rep("", 10), rep("<", 10))
+#' result     <- 1:20
+#' find_mec(cen_result, result)
+#' 
+#' cen_result <- rep("<", 20)
+#' find_mec(cen_result, result)
+#' 
+#' cen_result <- rep("", 20)
+#' find_mec(cen_result, result)
+#' 
+#' # Demonstrate simplified output
+#' find_mec(cen_result, result, simple_output = TRUE)
+#' 
+#' # Define a set of custom non-detect flags
+#' cen_result <- c(rep("non-detect", 5), rep("<", 10), rep("mdl", 5))
+#' find_mec(cen_result, result, nd = c("non-detect", "<", "mdl"))
+#' 
 find_mec <- function(qual, result, 
                      nd = c("<", "nd", "ND"), simple_output = FALSE) {
   
@@ -155,7 +183,8 @@ find_mec <- function(qual, result,
 }
 
 
-#' Calculate Projected Maximum Effluent Concentration (MEC)
+#' @title Find the projected Maximum Observed Effluent Concentration (MEC)
+#' @description Find the MEC projected from a lognormal distribution using methods described in EPA's Technical Support Document for Water Quality-based Toxics Control.
 #'
 #' @param qual  A character vector containing non-detect indicator strings, e.g., "<" or "ND". The strings used to indicate censored status can be edited in the "nd" argument.
 #' @param result A numeric vector of concentration measurements.
@@ -169,6 +198,26 @@ find_mec <- function(qual, result,
 #' @export
 #'
 #' @examples
+#' # Find observed MEC
+#' cen_result <- c(rep("", 10), rep("<", 10))
+#' result     <- 1:20
+#' project_mec(cen_result, result)
+#' 
+#' # Demonstrate simplified output
+#' cen_result <- rep("<", 20)
+#' project_mec(cen_result, result, simple_output = TRUE)
+#' 
+#' # Define a set of custom non-detect flags
+#' cen_result <- c(rep("non-detect", 5), rep("<", 10), rep("mdl", 5))
+#' project_mec(cen_result, result, nd = c("non-detect", "<", "mdl"))
+#' 
+#' # Change the substitution multiplier used for non-detect values
+#' cen_result <- c(rep("<", 5), rep("", 15))
+#' result     <- c(101:120)
+#' project_mec(cen_result, result)   # Use default 0.5 multipler
+#' project_mec(cen_result, result, nd_adjustment = 1.0)  # Use 1.0 multiplier (equivalent to using MDL)
+#' project_mec(cen_result, result, nd_adjustment = 0)  # Use 0.0 multiplier (equivalent to zero substitution)
+#' 
 project_mec <- function(qual, result, 
                         nd = c("<", "nd", "ND"),
                         percentile = 0.95, conf_level = 0.99,
@@ -253,7 +302,8 @@ project_mec <- function(qual, result,
 
 
 
-#' Compute the wasteload allocation (WLA) used for effluent limit calculation.
+#' @title Compute Wasteload Allocation
+#' @description Compute the wasteload allocation (WLA) used for effluent limit calculation.
 #'
 #' @param criteria Limiting water quality criterion. Must be in same units as background argument.
 #' @param background Background pollutant concentration. Must be in same units as criteria argument.
@@ -264,6 +314,15 @@ project_mec <- function(qual, result,
 #' @export
 #'
 #' @examples
+#' # WLA for pollutant with 2 ug/L acute criteria and upstream receiving water concentration 
+#' # of 0.1 ug/L. The critical flows are 3 MGD (1Q10) and 0.5 MGD (max daily flow).
+#' calc_WLA(2, 0.1, 3, 0.5) 
+#' 
+#' # When using dilution credits, put Qrsw and Qeff in terms of the dilution ratio (D).
+#' D = 7   # Assume a jurisdiction that uses D = (Qrsw + Qeff) / Qeff
+#' Qeff = 1 # Equal to 1 since its the denominator of the ratio, or you can use the critical flow
+#' Qrsw = D - 1 # Same as the expression (D * Qeff) - Qeff
+#' calc_WLA(2, 0.1, Qrsw = D - 1, Qeff = 1)
 calc_WLA <- function(criteria, background, Qrsw, Qeff) {
   
   ## For dilution ratios, set Qeff = 1 and Qrsw to appropriate value
@@ -278,7 +337,8 @@ calc_WLA <- function(criteria, background, Qrsw, Qeff) {
 
 
 
-#' Compute Maximum Daily Effluent Limitation (MDL).
+#' @title Compute MDL
+#' @description Compute Maximum Daily Effluent Limitation (MDL) according to methods in EPA's Technical Support Document for Water Quality-based Toxics Control.
 #'
 #' @param WLAa Numeric. Acute wasteload allocation (WLA). All WLA units should be identical.
 #' @param WLAc Numeric. Chronic wasteload allocation (WLA). All WLA units should be identical.
@@ -293,6 +353,7 @@ calc_WLA <- function(criteria, background, Qrsw, Qeff) {
 #' @export
 #'
 #' @examples
+#' 
 calc_MDL <- function(WLAa, WLAc, WLAhh, cv, 
                     n_samples = 4, prob_LTA = 0.99, 
                     percentile_MDL = 0.99, percentile_AML = 0.95) {
@@ -339,7 +400,8 @@ calc_MDL <- function(WLAa, WLAc, WLAhh, cv,
 }
 
 
-#' Compute average monthly effluent limitation (AML).
+#' @title Compute AML
+#' @description Compute average monthly effluent limitation (AML) according to methods in EPA's Technical Support Document for Water Quality-based Toxics Control.
 #'
 #' @param WLAa Numeric. Acute wasteload allocation (WLA). All WLA units should be identical.
 #' @param WLAc Numeric. Chronic wasteload allocation (WLA). All WLA units should be identical.

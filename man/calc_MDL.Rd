@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_functions.R
 \name{calc_MDL}
 \alias{calc_MDL}
-\title{Compute Maximum Daily Effluent Limitation (MDL).}
+\title{Compute MDL}
 \usage{
 calc_MDL(
   WLAa,
@@ -36,5 +36,8 @@ calc_MDL(
 Numceric value in same units at WLA.
 }
 \description{
-Compute Maximum Daily Effluent Limitation (MDL).
+Compute Maximum Daily Effluent Limitation (MDL) according to methods in EPA's Technical Support Document for Water Quality-based Toxics Control.
+}
+\examples{
+
 }

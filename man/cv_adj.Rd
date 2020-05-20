@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_functions.R
 \name{cv_adj}
 \alias{cv_adj}
-\title{Calculated adjusted coeficient of variation (CV).}
+\title{Find the adjusted coeffecient of variation}
 \usage{
 cv_adj(qual, result, nd = c("<", "nd", "ND"), nd_adjustment = 0.5)
 }
@@ -19,5 +19,27 @@ cv_adj(qual, result, nd = c("<", "nd", "ND"), nd_adjustment = 0.5)
 A numeric coefficient of variation (CV) value
 }
 \description{
-Calculated adjusted coeficient of variation (CV).
+Calculates adjusted coeficient of variation (CV) according to methods described in EPA's Technical Support Document for Water Quality-based Toxics Control.
+}
+\examples{
+# CV for all detected values 
+cen_result <- rep("", 10)
+result     <- c(1:10) 
+cv_adj(cen_result, result)
+
+# CV for all non-detected values
+cen_result <- rep("<", 10)
+cv_adj(cen_result, result)
+
+# CV for fewer than 10 measurements
+cen_result <- rep("", 5)
+result <-     c(1:5)
+cv_adj(cen_result, result)
+
+# Change the default substitution value
+cen_result <- c(rep("<", 5), rep("", 15))
+result     <- c(101:120)
+cv_adj(cen_result, result)   # Use default 0.5 multipler
+cv_adj(cen_result, result, nd_adjustment = 1.0)  # Use 1.0 multiplier (equivalent to using MDL)
+cv_adj(cen_result, result, nd_adjustment = 0)  # Use 0.0 multiplier (equivalent to zero substitution)
 }

@@ -19,5 +19,25 @@ find_mec(qual, result, nd = c("<", "nd", "ND"), simple_output = FALSE)
 Dataframe with a qualifier column (character) and a MEC column (numeric).
 }
 \description{
-Find the Maximum Observed Effluent Concentration (MEC)
+Find the MEC (no projection) from the observed dataset using methods described in EPA's Technical Support Document for Water Quality-based Toxics Control.
+}
+\examples{
+# Find observed MEC
+cen_result <- c(rep("", 10), rep("<", 10))
+result     <- 1:20
+find_mec(cen_result, result)
+
+cen_result <- rep("<", 20)
+find_mec(cen_result, result)
+
+cen_result <- rep("", 20)
+find_mec(cen_result, result)
+
+# Demonstrate simplified output
+find_mec(cen_result, result, simple_output = TRUE)
+
+# Define a set of custom non-detect flags
+cen_result <- c(rep("non-detect", 5), rep("<", 10), rep("mdl", 5))
+find_mec(cen_result, result, nd = c("non-detect", "<", "mdl"))
+
 }

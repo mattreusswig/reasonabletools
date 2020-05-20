@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_functions.R
 \name{calc_WLA}
 \alias{calc_WLA}
-\title{Compute the wasteload allocation (WLA) used for effluent limit calculation.}
+\title{Compute Wasteload Allocation}
 \usage{
 calc_WLA(criteria, background, Qrsw, Qeff)
 }
@@ -20,4 +20,15 @@ WLA as numeric value in same units as criteria and background.
 }
 \description{
 Compute the wasteload allocation (WLA) used for effluent limit calculation.
+}
+\examples{
+# WLA for pollutant with 2 ug/L acute criteria and upstream receiving water concentration 
+# of 0.1 ug/L. The critical flows are 3 MGD (1Q10) and 0.5 MGD (max daily flow).
+calc_WLA(2, 0.1, 3, 0.5) 
+
+# When using dilution credits, put Qrsw and Qeff in terms of the dilution ratio (D).
+D = 7   # Assume a jurisdiction that uses D = (Qrsw + Qeff) / Qeff
+Qeff = 1 # Equal to 1 since its the denominator of the ratio, or you can use the critical flow
+Qrsw = D - 1 # Same as the expression (D * Qeff) - Qeff
+calc_WLA(2, 0.1, Qrsw = D - 1, Qeff = 1)
 }

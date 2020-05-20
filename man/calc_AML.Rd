@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_functions.R
 \name{calc_AML}
 \alias{calc_AML}
-\title{Compute average monthly effluent limitation (AML).}
+\title{Compute AML}
 \usage{
 calc_AML(
   WLAa,
@@ -33,5 +33,5 @@ calc_AML(
 
 }
 \description{
-Compute average monthly effluent limitation (AML).
+Compute average monthly effluent limitation (AML) according to methods in EPA's Technical Support Document for Water Quality-based Toxics Control.
 }

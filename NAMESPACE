@@ -3,7 +3,6 @@
 export(calc_AML)
 export(calc_MDL)
 export(calc_WLA)
-export(cen_sum)
 export(cv_adj)
 export(find_mec)
 export(fuse_samples)

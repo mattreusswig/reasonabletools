@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_functions.R
 \name{project_mec}
 \alias{project_mec}
-\title{Calculate Projected Maximum Effluent Concentration (MEC)}
+\title{Find the projected Maximum Observed Effluent Concentration (MEC)}
 \usage{
 project_mec(
   qual,
@@ -33,5 +33,27 @@ project_mec(
 Dataframe with a qualifier column (character) and a MEC column (numeric).
 }
 \description{
-Calculate Projected Maximum Effluent Concentration (MEC)
+Find the MEC projected from a lognormal distribution using methods described in EPA's Technical Support Document for Water Quality-based Toxics Control.
+}
+\examples{
+# Find observed MEC
+cen_result <- c(rep("", 10), rep("<", 10))
+result     <- 1:20
+project_mec(cen_result, result)
+
+# Demonstrate simplified output
+cen_result <- rep("<", 20)
+project_mec(cen_result, result, simple_output = TRUE)
+
+# Define a set of custom non-detect flags
+cen_result <- c(rep("non-detect", 5), rep("<", 10), rep("mdl", 5))
+project_mec(cen_result, result, nd = c("non-detect", "<", "mdl"))
+
+# Change the substitution multiplier used for non-detect values
+cen_result <- c(rep("<", 5), rep("", 15))
+result     <- c(101:120)
+project_mec(cen_result, result)   # Use default 0.5 multipler
+project_mec(cen_result, result, nd_adjustment = 1.0)  # Use 1.0 multiplier (equivalent to using MDL)
+project_mec(cen_result, result, nd_adjustment = 0)  # Use 0.0 multiplier (equivalent to zero substitution)
+
 }
