@@ -147,9 +147,9 @@ Using dplyr is often a more intuitive way to implement split-apply-combine for m
 ```{r new dplyr example, message=FALSE, warning=FALSE}
 library(dplyr)
 
-# data %>% 
-#   group_by(pollutant) %>% 
-#   summarise(find_mec(qualifier, result))
+data %>%
+  group_by(pollutant) %>%
+  summarise(find_mec(qualifier, result))
 ```
 
 ### dplyr (Pre-v1.0)

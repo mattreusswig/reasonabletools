@@ -294,9 +294,18 @@ section for pre-1.0 dplyr strategies.)
 ``` r
 library(dplyr)
 
-# data %>% 
-#   group_by(pollutant) %>% 
-#   summarise(find_mec(qualifier, result))
+data %>%
+  group_by(pollutant) %>%
+  summarise(find_mec(qualifier, result))
+#> # A tibble: 6 x 3
+#>   pollutant qual  result
+#>   <chr>     <chr>  <dbl>
+#> 1 arsenic   ""       0.3
+#> 2 copper    "<"      0.2
+#> 3 lead      "<"      0.1
+#> 4 nickel    ""       0.5
+#> 5 pcbs      ""       0.4
+#> 6 zinc      ""       0.4
 ```
 
 ### dplyr (Pre-v1.0)
