@@ -8,18 +8,6 @@
 #'
 #' @return dataframe with two columns, qual (character) and result (numeric)
 #'
-#' @examples 
-#' ## Example 1 - Some non-detects
-#' result <- runif(5, 1, 10)
-#' cen_result <- sample(c("<", ""), length(result), 
-#'                      replace = TRUE, prob = c(0.2, 0.8))
-#' cen_sum(cen_result, result)
-#' 
-#' ## Example 2 - All non-detects
-#' result <- runif(5, 1, 10)
-#' cen_result <- sample(c("<", ""), length(result), 
-#'                      replace = TRUE, prob = c(1, 0))
-#' cen_sum(cen_result, result)
 #' 
 cen_sum <- function(qual, result, nd = c("<", "nd", "ND")) {
   
@@ -93,6 +81,7 @@ cen_sum <- function(qual, result, nd = c("<", "nd", "ND")) {
 fuse_samples <- function(date_grp, qual, result, nd = c("<", "nd", "ND")) {
   
   ## Error Handling ---------------------------------------------------
+  result_class <- class(result)
   if (!is.numeric(result)) stop("result arugment must be numeric. The result argument entered is a ", result_class, " type.",
                                         call. = FALSE)
   

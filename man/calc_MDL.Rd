@@ -33,11 +33,12 @@ calc_MDL(
 \item{percentile_AML}{Numeric (fraction). Lognormal distribution location for AML.}
 }
 \value{
-Numceric value in same units at WLA.
+Numeric value in same units as the WLAs.
 }
 \description{
 Compute Maximum Daily Effluent Limitation (MDL) according to methods in EPA's Technical Support Document for Water Quality-based Toxics Control.
 }
 \examples{
+calc_MDL(WLAa=4, WLAc=1, WLAhh=10, cv=0.6)
 
 }

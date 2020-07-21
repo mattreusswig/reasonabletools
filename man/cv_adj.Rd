@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_functions.R
 \name{cv_adj}
 \alias{cv_adj}
-\title{Find the adjusted coeffecient of variation}
+\title{Find the adjusted coefficient of variation}
 \usage{
 cv_adj(qual, result, nd = c("<", "nd", "ND"), nd_adjustment = 0.5)
 }
@@ -13,13 +13,13 @@ cv_adj(qual, result, nd = c("<", "nd", "ND"), nd_adjustment = 0.5)
 
 \item{nd}{A list indicating all the censoring flags included in the dataset. Defaults to "<", "nd", and "ND".}
 
-\item{nd_adjustment}{Adjustment factor for non-dectect values. Non-detect values (as indicated in qual vector) are multiplied by nd_adjustment factor; i.e. result * nd_adjustment. Typically, method detection limits or reporting limits are used as result values for non-detects.}
+\item{nd_adjustment}{Adjustment factor for non-detect values. Non-detect values (as indicated in qual vector) are multiplied by nd_adjustment factor; i.e. result * nd_adjustment. Typically, method detection limits or reporting limits are used as result values for non-detects.}
 }
 \value{
 A numeric coefficient of variation (CV) value
 }
 \description{
-Calculates adjusted coeficient of variation (CV) according to methods described in EPA's Technical Support Document for Water Quality-based Toxics Control.
+Calculates adjusted coefficient of variation (CV) according to methods described in EPA's Technical Support Document for Water Quality-based Toxics Control.
 }
 \examples{
 # CV for all detected values 
@@ -39,7 +39,9 @@ cv_adj(cen_result, result)
 # Change the default substitution value
 cen_result <- c(rep("<", 5), rep("", 15))
 result     <- c(101:120)
-cv_adj(cen_result, result)   # Use default 0.5 multipler
-cv_adj(cen_result, result, nd_adjustment = 1.0)  # Use 1.0 multiplier (equivalent to using MDL)
-cv_adj(cen_result, result, nd_adjustment = 0)  # Use 0.0 multiplier (equivalent to zero substitution)
+cv_adj(cen_result, result)   # Use default 0.5 multiplier
+# Use 1.0 multiplier (equivalent to using MDL)
+cv_adj(cen_result, result, nd_adjustment = 1.0)  
+# Use 0.0 multiplier (equivalent to zero substitution)
+cv_adj(cen_result, result, nd_adjustment = 0)  
 }

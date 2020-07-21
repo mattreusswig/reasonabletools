@@ -52,8 +52,12 @@ project_mec(cen_result, result, nd = c("non-detect", "<", "mdl"))
 # Change the substitution multiplier used for non-detect values
 cen_result <- c(rep("<", 5), rep("", 15))
 result     <- c(101:120)
-project_mec(cen_result, result)   # Use default 0.5 multipler
-project_mec(cen_result, result, nd_adjustment = 1.0)  # Use 1.0 multiplier (equivalent to using MDL)
-project_mec(cen_result, result, nd_adjustment = 0)  # Use 0.0 multiplier (equivalent to zero substitution)
+project_mec(cen_result, result)   # Use default 0.5 multiplier
+
+# Use 1.0 multiplier (equivalent to using MDL)
+project_mec(cen_result, result, nd_adjustment = 1.0)
+
+# Use 0.0 multiplier (equivalent to zero substitution)  
+project_mec(cen_result, result, nd_adjustment = 0)  
 
 }

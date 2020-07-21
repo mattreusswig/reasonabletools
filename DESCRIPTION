@@ -1,11 +1,15 @@
 Package: reasonabletools
 Title: Clean Water Quality Data for NPDES Reasonable Potential Analyses
-Version: 0.0.0.9000
+Version: 0.1.0.0000
+Depends: R (>= 4.0), stats
+Published: May 16, 2020
 Authors@R: 
     person(given = "Matthew",
            family = "Reusswig",
            role = c("aut", "cre"),
            email = "matt.reusswig@gmail.com")
+BugReports: https://github.com/mattreusswig/reasonabletools/issues
+URL: https://github.com/mattreusswig/reasonabletools
 Description: This is a package for cleaning and summarising water quality data for use in NPDES permit reasonable potential analyses.
 License: MIT + file LICENSE
 Encoding: UTF-8

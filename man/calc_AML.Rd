@@ -30,8 +30,12 @@ calc_AML(
 \item{percentile_AML}{Numeric (fraction). Lognormal distribution location for AML.}
 }
 \value{
-
+Numeric value in same units as the WLAs.
 }
 \description{
 Compute average monthly effluent limitation (AML) according to methods in EPA's Technical Support Document for Water Quality-based Toxics Control.
+}
+\examples{
+calc_AML(WLAa=4, WLAc=1, WLAhh=10, cv=0.6)
+
 }

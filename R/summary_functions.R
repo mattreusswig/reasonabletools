@@ -1,10 +1,10 @@
-#' @title Find the adjusted coeffecient of variation
-#' @description Calculates adjusted coeficient of variation (CV) according to methods described in EPA's Technical Support Document for Water Quality-based Toxics Control.
+#' @title Find the adjusted coefficient of variation
+#' @description Calculates adjusted coefficient of variation (CV) according to methods described in EPA's Technical Support Document for Water Quality-based Toxics Control.
 #'
 #' @param qual  A character vector containing non-detect indicator strings, e.g., "<" or "ND". The strings used to indicate censored status can be edited in the "nd" argument.
 #' @param result A numeric vector of concentration measurements.
 #' @param nd A list indicating all the censoring flags included in the dataset. Defaults to "<", "nd", and "ND".
-#' @param nd_adjustment Adjustment factor for non-dectect values. Non-detect values (as indicated in qual vector) are multiplied by nd_adjustment factor; i.e. result * nd_adjustment. Typically, method detection limits or reporting limits are used as result values for non-detects.
+#' @param nd_adjustment Adjustment factor for non-detect values. Non-detect values (as indicated in qual vector) are multiplied by nd_adjustment factor; i.e. result * nd_adjustment. Typically, method detection limits or reporting limits are used as result values for non-detects.
 #'
 #' @return A numeric coefficient of variation (CV) value
 #' @export
@@ -27,9 +27,11 @@
 #' # Change the default substitution value
 #' cen_result <- c(rep("<", 5), rep("", 15))
 #' result     <- c(101:120)
-#' cv_adj(cen_result, result)   # Use default 0.5 multipler
-#' cv_adj(cen_result, result, nd_adjustment = 1.0)  # Use 1.0 multiplier (equivalent to using MDL)
-#' cv_adj(cen_result, result, nd_adjustment = 0)  # Use 0.0 multiplier (equivalent to zero substitution)
+#' cv_adj(cen_result, result)   # Use default 0.5 multiplier
+#' # Use 1.0 multiplier (equivalent to using MDL)
+#' cv_adj(cen_result, result, nd_adjustment = 1.0)  
+#' # Use 0.0 multiplier (equivalent to zero substitution)
+#' cv_adj(cen_result, result, nd_adjustment = 0)  
 cv_adj <- function(qual, result, 
                    nd = c("<", "nd", "ND"), nd_adjustment = 0.5) {
   
@@ -79,7 +81,7 @@ cv_adj <- function(qual, result,
     } 
     
     ## Compute CV
-    std_deviation <- sd( c(result[detects], 
+    std_deviation <- stats::sd( c(result[detects], 
                            nd_adjustment * result[nondetects]), 
                          na.rm = TRUE)
     
@@ -214,9 +216,13 @@ find_mec <- function(qual, result,
 #' # Change the substitution multiplier used for non-detect values
 #' cen_result <- c(rep("<", 5), rep("", 15))
 #' result     <- c(101:120)
-#' project_mec(cen_result, result)   # Use default 0.5 multipler
-#' project_mec(cen_result, result, nd_adjustment = 1.0)  # Use 1.0 multiplier (equivalent to using MDL)
-#' project_mec(cen_result, result, nd_adjustment = 0)  # Use 0.0 multiplier (equivalent to zero substitution)
+#' project_mec(cen_result, result)   # Use default 0.5 multiplier
+#' 
+#' # Use 1.0 multiplier (equivalent to using MDL)
+#' project_mec(cen_result, result, nd_adjustment = 1.0)
+#' 
+#' # Use 0.0 multiplier (equivalent to zero substitution)  
+#' project_mec(cen_result, result, nd_adjustment = 0)  
 #' 
 project_mec <- function(qual, result, 
                         nd = c("<", "nd", "ND"),
@@ -282,8 +288,8 @@ project_mec <- function(qual, result,
     
     
     ## Compute the mec multiplier, according to the TSD method
-    c_target   <- exp(qnorm(percentile) * sigma - 0.5 * sigma^2)
-    c_observed <- exp(qnorm(p_n) * sigma - 0.5 * sigma^2)
+    c_target   <- exp(stats::qnorm(percentile) * sigma - 0.5 * sigma^2)
+    c_observed <- exp(stats::qnorm(p_n) * sigma - 0.5 * sigma^2)
     
     
     ## Compute the MEC
@@ -349,10 +355,11 @@ calc_WLA <- function(criteria, background, Qrsw, Qeff) {
 #' @param percentile_MDL Numeric (fraction). Lognormal distribution location for MDL. 
 #' @param percentile_AML Numeric (fraction). Lognormal distribution location for AML.
 #'
-#' @return Numceric value in same units at WLA.
+#' @return Numeric value in same units as the WLAs.
 #' @export
 #'
-#' @examples
+#' @examples 
+#' calc_MDL(WLAa=4, WLAc=1, WLAhh=10, cv=0.6)
 #' 
 calc_MDL <- function(WLAa, WLAc, WLAhh, cv, 
                     n_samples = 4, prob_LTA = 0.99, 
@@ -371,8 +378,8 @@ calc_MDL <- function(WLAa, WLAc, WLAhh, cv,
   sigma4_2 <- log(1 + 0.25 * cv^2)
   
   ### Compute the acute and chronic multipliers
-  acute_mult <- exp(0.5 * sigma_2 - qnorm(prob_LTA) * sqrt(sigma_2))
-  chron_mult <- exp(0.5 * sigma4_2 - qnorm(prob_LTA) * sqrt(sigma4_2))
+  acute_mult <- exp(0.5 * sigma_2 - stats::qnorm(prob_LTA) * sqrt(sigma_2))
+  chron_mult <- exp(0.5 * sigma4_2 - stats::qnorm(prob_LTA) * sqrt(sigma4_2))
   
   ### Compute the LTAs
   LTAa <- WLAa * acute_mult
@@ -383,8 +390,8 @@ calc_MDL <- function(WLAa, WLAc, WLAhh, cv,
   
   ## Step 4: Compute the MDL for aquatic life
   sigman_2 <- log(1 + (1 / n_samples) * cv^2)
-  MDL_mult <- exp(qnorm(percentile_MDL) * sqrt(sigma_2) - 0.5 * sigma_2)
-  AML_mult <- exp(qnorm(percentile_AML) * sqrt(sigman_2) - 0.5 * sigma_2)
+  MDL_mult <- exp(stats::qnorm(percentile_MDL) * sqrt(sigma_2) - 0.5 * sigma_2)
+  AML_mult <- exp(stats::qnorm(percentile_AML) * sqrt(sigman_2) - 0.5 * sigma_2)
   MDLaq    <- LTA * MDL_mult
   
   ## Step 5: Compute the MDL for human health
@@ -411,10 +418,12 @@ calc_MDL <- function(WLAa, WLAc, WLAhh, cv,
 #' @param prob_LTA Numeric (fraction). Allowable exceedance probability of the WLA used to estimate long-term average (LTA). 
 #' @param percentile_AML Numeric (fraction). Lognormal distribution location for AML.
 #'
-#' @return
+#' @return Numeric value in same units as the WLAs.
 #' @export
 #'
-#' @examples
+#' @examples 
+#' calc_AML(WLAa=4, WLAc=1, WLAhh=10, cv=0.6)
+#' 
 calc_AML <- function(WLAa, WLAc, WLAhh, cv, 
                     n_samples = 4, prob_LTA = 0.99, percentile_AML = 0.95) {
   
@@ -431,8 +440,8 @@ calc_AML <- function(WLAa, WLAc, WLAhh, cv,
   sigma4_2 <- log(1 + 0.25 * cv^2)
   
   ### Compute the acute and chronic multipliers
-  M_acute <- exp(0.5 * sigma_2 - qnorm(prob_LTA) * sqrt(sigma_2))
-  M_chron <- exp(0.5 * sigma4_2 - qnorm(prob_LTA) * sqrt(sigma4_2))
+  M_acute <- exp(0.5 * sigma_2 - stats::qnorm(prob_LTA) * sqrt(sigma_2))
+  M_chron <- exp(0.5 * sigma4_2 - stats::qnorm(prob_LTA) * sqrt(sigma4_2))
   
   ### Compute the LTAs
   LTAa <- WLAa * M_acute
@@ -446,7 +455,7 @@ calc_AML <- function(WLAa, WLAc, WLAhh, cv,
   ### each month. Typically assume 4 for most toxics unless sampling is more
   ### frequent (e.g., daily = 30).
   sigman_2 <- log(1 + (1 / n_samples) * cv^2)
-  AMLaq <- LTA * exp(qnorm(percentile_AML) * sqrt(sigman_2) - 0.5 * sigma_2)
+  AMLaq <- LTA * exp(stats::qnorm(percentile_AML) * sqrt(sigman_2) - 0.5 * sigma_2)
   
   ## Step 5: Compute the human health AML
   AMLhh <- WLAhh
