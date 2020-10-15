@@ -98,8 +98,8 @@ data <- data.frame(pollutant = sort(rep(c("zinc", "arsenic", "copper",
                                       replace = TRUE, prob = c(0.8, 0.2)),
                    result = sample(seq(0.1, 0.5, 0.1), 30, replace = TRUE),
                    sampling.date = rep(seq.Date(from = as.Date("2012-03-10"), 
-                                                to = as.Date("2012-03-10") + 365 * 5,
-                                                by = 365), 5),
+                                                to = as.Date("2012-03-10") + 365 * 4,
+                                                by = 365), 6),
                    stringsAsFactors = FALSE)
 
 data
