@@ -6,7 +6,6 @@
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/reasonabletools)](https://CRAN.R-project.org/package=reasonabletools)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![R build status](https://github.com/mattreusswig/reasonabletools/workflows/R-CMD-check/badge.svg)](https://github.com/mattreusswig/reasonabletools/actions)
 <!-- badges: end -->
 
 This package provides the user with convenience functions for cleaning
