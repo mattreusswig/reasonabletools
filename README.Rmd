@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/reasonabletools)](https://CRAN.R-project.org/package=reasonabletools)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![R build status](https://github.com/mattreusswig/reasonabletools/workflows/R-CMD-check/badge.svg)](https://github.com/mattreusswig/reasonabletools/actions)
 <!-- badges: end -->
 
 This package provides the user with convenience functions for cleaning and summarizing data for use in Reasonable Potential Analyses (RPAs) and Water Quality-based Effluent Limitation (WQBEL) development. Examples of tasks one can do with reasonabletools include constructing composite parameter measurement (e.g., total PCBs) from congener water samples, finding maximum observed concentrations from partially censored datasets, and projecting maximum effluent concentrations (MECs). Methods for projecting MECs and computing effluent limitations are based on EPA's Technical Support Document for Water Quality-based Toxics Control (TSD). 
