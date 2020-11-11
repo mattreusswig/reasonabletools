@@ -20,7 +20,14 @@ Control (TSD).
 
 ## Installation
 
-You can install the current version of reasonabletools from
+You can install the current stable version of the package from CRAN
+using the following:
+
+``` r
+install.packages("reasonabletools")
+```
+
+You can install the current development version of reasonabletools from
 [github](https://github.com/mattreusswig/reasonabletools) using
 devtools.
 
@@ -193,8 +200,8 @@ data <- data.frame(pollutant = sort(rep(c("zinc", "arsenic", "copper",
                                       replace = TRUE, prob = c(0.8, 0.2)),
                    result = sample(seq(0.1, 0.5, 0.1), 30, replace = TRUE),
                    sampling.date = rep(seq.Date(from = as.Date("2012-03-10"), 
-                                                to = as.Date("2012-03-10") + 365 * 5,
-                                                by = 365), 5),
+                                                to = as.Date("2012-03-10") + 365 * 4,
+                                                by = 365), 6),
                    stringsAsFactors = FALSE)
 
 data
@@ -204,31 +211,31 @@ data
 #> 3    arsenic         <    0.4    2014-03-10
 #> 4    arsenic         <    0.1    2015-03-10
 #> 5    arsenic         <    0.3    2016-03-09
-#> 6     copper         <    0.5    2017-03-09
-#> 7     copper         <    0.4    2012-03-10
-#> 8     copper         <    0.5    2013-03-10
-#> 9     copper         <    0.5    2014-03-10
-#> 10    copper         <    0.2    2015-03-10
-#> 11      lead         <    0.1    2016-03-09
-#> 12      lead         <    0.1    2017-03-09
-#> 13      lead         <    0.2    2012-03-10
-#> 14      lead         <    0.4    2013-03-10
-#> 15      lead         <    0.4    2014-03-10
-#> 16    nickel              0.5    2015-03-10
-#> 17    nickel              0.2    2016-03-09
-#> 18    nickel         <    0.4    2017-03-09
-#> 19    nickel         <    0.1    2012-03-10
-#> 20    nickel         <    0.3    2013-03-10
-#> 21      pcbs         <    0.2    2014-03-10
-#> 22      pcbs              0.4    2015-03-10
-#> 23      pcbs         <    0.5    2016-03-09
-#> 24      pcbs         <    0.2    2017-03-09
-#> 25      pcbs         <    0.4    2012-03-10
-#> 26      zinc              0.4    2013-03-10
-#> 27      zinc         <    0.3    2014-03-10
-#> 28      zinc         <    0.5    2015-03-10
-#> 29      zinc              0.2    2016-03-09
-#> 30      zinc         <    0.3    2017-03-09
+#> 6     copper         <    0.5    2012-03-10
+#> 7     copper         <    0.4    2013-03-10
+#> 8     copper         <    0.5    2014-03-10
+#> 9     copper         <    0.5    2015-03-10
+#> 10    copper         <    0.2    2016-03-09
+#> 11      lead         <    0.1    2012-03-10
+#> 12      lead         <    0.1    2013-03-10
+#> 13      lead         <    0.2    2014-03-10
+#> 14      lead         <    0.4    2015-03-10
+#> 15      lead         <    0.4    2016-03-09
+#> 16    nickel              0.5    2012-03-10
+#> 17    nickel              0.2    2013-03-10
+#> 18    nickel         <    0.4    2014-03-10
+#> 19    nickel         <    0.1    2015-03-10
+#> 20    nickel         <    0.3    2016-03-09
+#> 21      pcbs         <    0.2    2012-03-10
+#> 22      pcbs              0.4    2013-03-10
+#> 23      pcbs         <    0.5    2014-03-10
+#> 24      pcbs         <    0.2    2015-03-10
+#> 25      pcbs         <    0.4    2016-03-09
+#> 26      zinc              0.4    2012-03-10
+#> 27      zinc         <    0.3    2013-03-10
+#> 28      zinc         <    0.5    2014-03-10
+#> 29      zinc              0.2    2015-03-10
+#> 30      zinc         <    0.3    2016-03-09
 ```
 
 ### Base R

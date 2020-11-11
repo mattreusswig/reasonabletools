@@ -22,7 +22,13 @@ This package provides the user with convenience functions for cleaning and summa
 
 ## Installation
 
-You can install the current version of reasonabletools from [github](https://github.com/mattreusswig/reasonabletools) using devtools.
+You can install the current stable version of the package from CRAN using the following:
+
+```r
+install.packages("reasonabletools")
+```
+
+You can install the current development version of reasonabletools from [github](https://github.com/mattreusswig/reasonabletools) using devtools.
 
 ``` r
 # If devetools is not installed, install it.
